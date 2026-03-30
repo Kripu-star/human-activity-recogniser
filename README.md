@@ -12,15 +12,23 @@ The core difficulty in Human Activity Recognition (HAR) is the **"Signal-to-Acti
 ---
 
 ## 🏗️ System Architecture
-The pipeline follows a rigorous scientific approach to data transformation:
+The application is designed using a modular 4-tier architecture to ensure scalability and ease of deployment.
 
-1.  **Data Acquisition:** Tri-axial $A_x, A_y, A_z$ signals recorded at $50\text{ Hz}$.
-2.  **Pre-processing:** Application of a median filter and a $20\text{ Hz}$ 3rd order low-pass Butterworth filter.
-3.  **Feature Engineering:** Sliding window segmentation (2.56s) to extract **561 features** across:
-    * **Time Domain:** Mean, Standard Deviation, Signal Magnitude Area (SMA), etc.
-    * **Frequency Domain:** Fast Fourier Transform (FFT) components to identify rhythmic gait patterns.
-4.  **Inference:** A Multi-class Logistic Regression model ($L2$ Regularized) trained on the UCI HAR Dataset.
+### 1. Frontend Layer
+* **Technology:** Streamlit (Python-based Web Framework).
+* **Function:** Handles user interactions, CSV file uploads, and real-time visualization of activity distributions using Plotly/Matplotlib.
 
+### 2. Backend Engine
+* **Technology:** Python 3.x.
+* **Logic:** Managed by `joblib` for model persistence and `pandas` for high-speed data manipulation and feature alignment.
+
+### 3. Model Layer (The "Brain")
+* **Algorithm:** $L2$-Regularized Logistic Regression (Ridge).
+* **Optimization:** Hyperparameter tuning via Cross-Validation to determine the optimal inverse regularization strength ($C$).
+
+### 4. Data Layer
+* **Source:** UCI Human Activity Recognition Dataset.
+* **Structure:** Standardized feature set (561 columns) representing time and frequency domain signals.
 ---
 ## 📊 Model Performance & Accuracy
 The model was evaluated using a multi-metric approach. Below are the results for the **L2-Regularized Logistic Regression** model as seen in the research phase:
